@@ -8,7 +8,7 @@ import {
   Difficulty,
   EarnedBadge,
   Fact,
-  Format,
+  GameSession,
   Operation,
   Profile,
   SessionConfig,
@@ -90,17 +90,10 @@ export async function saveSettings(config: SessionConfig): Promise<void> {
 
 // ---- Facts ----------------------------------------------------------------
 
-function syntheticFact(
-  profileId: number,
-  operation: Operation,
-  format: Format,
-  a: number,
-  b: number,
-): Fact {
+function syntheticFact(profileId: number, operation: Operation, a: number, b: number): Fact {
   return {
     profileId,
     operation,
-    format,
     a,
     b,
     box: 0,
@@ -108,33 +101,27 @@ function syntheticFact(
     timesSeen: 0,
     timesCorrect: 0,
     lastSeen: 0,
+    recentResults: [],
   };
 }
 
 function mergeUniverse(
   profileId: number,
   operation: Operation,
-  format: Format,
   keys: FactKey[],
   stored: Fact[],
 ): Fact[] {
   const byKey = new Map<string, Fact>();
   for (const f of stored) byKey.set(`${f.a}:${f.b}`, f);
   return keys.map(
-    (k) =>
-      byKey.get(`${k.a}:${k.b}`) ??
-      syntheticFact(profileId, operation, format, k.a, k.b),
+    (k) => byKey.get(`${k.a}:${k.b}`) ?? syntheticFact(profileId, operation, k.a, k.b),
   );
 }
 
-async function loadStored(
-  profileId: number,
-  operation: Operation,
-  format: Format,
-): Promise<Fact[]> {
+async function loadStored(profileId: number, operation: Operation): Promise<Fact[]> {
   return getDB()
-    .facts.where('[profileId+operation+format]')
-    .equals([profileId, operation, format])
+    .facts.where('[profileId+operation]')
+    .equals([profileId, operation])
     .toArray();
 }
 
@@ -142,15 +129,13 @@ async function loadStored(
 export async function loadSessionUniverse(
   profileId: number,
   operation: Operation,
-  format: Format,
   difficulty: Difficulty,
   targetTables: number[] | null,
 ): Promise<Fact[]> {
-  const stored = await loadStored(profileId, operation, format);
+  const stored = await loadStored(profileId, operation);
   return mergeUniverse(
     profileId,
     operation,
-    format,
     universeKeys(operation, difficulty, targetTables),
     stored,
   );
@@ -160,14 +145,12 @@ export async function loadSessionUniverse(
 export async function loadFullUniverse(
   profileId: number,
   operation: Operation,
-  format: Format,
   difficulty: Difficulty,
 ): Promise<Fact[]> {
-  const stored = await loadStored(profileId, operation, format);
+  const stored = await loadStored(profileId, operation);
   return mergeUniverse(
     profileId,
     operation,
-    format,
     universeKeys(operation, difficulty, null),
     stored,
   );
@@ -204,4 +187,25 @@ export async function awardBadges(profileId: number, ids: string[]): Promise<voi
     earnedAt: now,
   }));
   await getDB().badges.bulkPut(rows);
+}
+
+// ---- Session history (progression-page chart) ------------------------------
+
+export async function recordGameSession(
+  session: Omit<GameSession, 'id'>,
+): Promise<void> {
+  await getDB().sessions.add(session);
+}
+
+/** Most recent `limit` sessions for a profile, newest first. */
+export async function getRecentSessions(
+  profileId: number,
+  limit = 20,
+): Promise<GameSession[]> {
+  return getDB()
+    .sessions.where('[profileId+playedAt]')
+    .between([profileId, 0], [profileId, Infinity])
+    .reverse()
+    .limit(limit)
+    .toArray();
 }

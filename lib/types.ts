@@ -31,7 +31,10 @@ export const OPERATION_SYMBOL: Record<Operation, string> = {
 
 /**
  * A single learnable fact for a profile, carrying its Leitner state.
- * The identity of a fact is (profileId, operation, format, a, b).
+ * The identity of a fact is (profileId, operation, a, b) — direct and à-trou
+ * questions both drill the same underlying math fact and count toward the
+ * same progress; format only affects how a question is *rendered*, chosen
+ * per-question in `buildQuestion`.
  *
  * `a` is always the "table" (the row of the Pythagore grid); `b` the second
  * operand / column. Division and subtraction are stored inverse to their
@@ -41,7 +44,6 @@ export interface Fact {
   id?: number;
   profileId: number;
   operation: Operation;
-  format: Format;
   a: number;
   b: number;
   box: Box;
@@ -51,6 +53,9 @@ export interface Fact {
   timesCorrect: number;
   /** Epoch ms of last time this fact was answered; 0 if never seen. */
   lastSeen: number;
+  /** Trailing window of the last (up to 10) outcomes, most recent last.
+   * Gates the connu -> maîtrisé promotion (needs >=90% success here). */
+  recentResults: boolean[];
 }
 
 /** The session configuration a profile last used (persisted). */
@@ -87,6 +92,16 @@ export interface EarnedBadge {
 export interface ActivityDay {
   profileId: number;
   date: string; // YYYY-MM-DD (local)
+}
+
+/** One finished session, kept for the progression-page history chart. */
+export interface GameSession {
+  id?: number;
+  profileId: number;
+  playedAt: number; // epoch ms
+  operations: Operation[];
+  score: number;
+  total: number;
 }
 
 /** A renderable question derived from a Fact + format. */

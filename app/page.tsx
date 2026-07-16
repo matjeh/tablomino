@@ -55,8 +55,8 @@ export default function ProfileSelectPage() {
   };
 
   return (
-    <main className="mx-auto flex w-full max-w-[420px] flex-1 items-center justify-center px-5 py-10">
-      <div className="flex w-full max-w-[390px] flex-col overflow-hidden rounded-[44px] bg-white shadow-[0_30px_70px_-20px_rgba(30,58,138,0.4)]">
+    <main className="mx-auto flex w-full max-w-[420px] flex-1 items-center justify-center px-5 py-10 sm:max-w-[560px] lg:max-w-[720px]">
+      <div className="flex w-full max-w-[390px] flex-col overflow-hidden rounded-[44px] bg-white shadow-[0_30px_70px_-20px_rgba(30,58,138,0.4)] sm:max-w-[520px] lg:max-w-[680px]">
         {/* Night panel — logo, score-free header, Kalk */}
         <div
           className="relative h-[330px] overflow-hidden px-6 pt-[22px]"

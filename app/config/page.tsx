@@ -253,7 +253,7 @@ export default function ConfigPage() {
       {/* Question count */}
       <section className="flex flex-col gap-2">
         <span className="font-bold text-slate-600">{t('config.questionCount')}</span>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {QUESTION_COUNTS.map((n) => (
             <Segment key={n} active={questionCount === n} onClick={() => setQuestionCount(n)}>
               {n}

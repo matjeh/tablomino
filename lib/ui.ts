@@ -41,6 +41,15 @@ export const OPERATION_META: Record<
   subtraction: { emoji: '➖', accent: 'from-amber-500 to-orange-500' },
 };
 
+/** Solid per-operation colour for the session-history chart (gradients don't
+ * segment cleanly when a bar is split across several operations). */
+export const OPERATION_CHART_COLOR: Record<Operation, string> = {
+  multiplication: '#8b5cf6',
+  division: '#38bdf8',
+  addition: '#10b981',
+  subtraction: '#f59e0b',
+};
+
 export const DIFFICULTIES: Difficulty[] = [1, 2, 3];
 
 /** Session length options offered on the config screen. */

@@ -50,12 +50,14 @@ type Action =
   | { type: 'SET_RESULT'; result: SessionResult }
   | { type: 'RESET' };
 
-// Must include operation+format: different operations (or the same operation
-// in a different format) can share the same (a, b) pair — e.g. multiplication
-// 7×8 and addition 7+8 — and would otherwise clobber each other's Leitner
-// update within a single mixed-operation session.
-const key = (f: { operation: string; format: string; a: number; b: number }) =>
-  `${f.operation}:${f.format}:${f.a}:${f.b}`;
+// Must include operation: different operations can share the same (a, b)
+// pair — e.g. multiplication 7×8 and addition 7+8 — and would otherwise
+// clobber each other's Leitner update within a single mixed-operation
+// session. Format is deliberately excluded: direct/hole questions for the
+// same fact share one Leitner state, so repeat appearances of a fact (in
+// whichever rendered format) must resolve to the same key.
+const key = (f: { operation: string; a: number; b: number }) =>
+  `${f.operation}:${f.a}:${f.b}`;
 const REINJECT_OFFSET = 2;
 
 function reducer(state: State, action: Action): State {

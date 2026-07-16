@@ -17,12 +17,28 @@ function ServiceWorkerRegistrar() {
   return null;
 }
 
+/**
+ * Asks the browser not to silently evict this origin's IndexedDB data under
+ * storage pressure (Android can otherwise clear "best-effort" storage for
+ * rarely-used origins). Standard web storage, unaffected by app updates.
+ */
+function PersistentStorageRequest() {
+  useEffect(() => {
+    if (typeof navigator === 'undefined' || !navigator.storage?.persist) return;
+    navigator.storage.persist().catch(() => {
+      /* best-effort; the app still works without it */
+    });
+  }, []);
+  return null;
+}
+
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <I18nProvider initialLocale="fr">
       <ProfileProvider>
         <ActiveSessionProvider>
           <ServiceWorkerRegistrar />
+          <PersistentStorageRequest />
           {children}
         </ActiveSessionProvider>
       </ProfileProvider>

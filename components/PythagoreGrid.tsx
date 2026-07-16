@@ -26,10 +26,9 @@ export function PythagoreGrid({
   return (
     <div className="overflow-x-auto">
       <div
-        className="mx-auto grid gap-1"
+        className="mx-auto grid w-full max-w-xl gap-1 sm:max-w-2xl"
         style={{
           gridTemplateColumns: `1.6rem repeat(${cols.length}, minmax(1.6rem, 1fr))`,
-          maxWidth: `${(cols.length + 1) * 2.4}rem`,
         }}
       >
         <div className={`${headCell} text-slate-300`}>{symbol}</div>
