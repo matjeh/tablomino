@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6f8ff;
+  --foreground: #1e2340;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+
+  /* Leitner box palette (nouveau / fragile / connu / maîtrisé). */
+  --color-box-0: #e2e8f0;
+  --color-box-1: #fdba74;
+  --color-box-2: #7dd3fc;
+  --color-box-3: #6ee7b7;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: var(--foreground);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #dbeafe 0%, transparent 55%),
+    radial-gradient(1000px 500px at 110% 10%, #fae8ff 0%, transparent 50%),
+    var(--background);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---- Playful feedback / transition animations (pure CSS) ---- */
+
+@keyframes pop-in {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes burst {
+  0% { transform: scale(0.5) rotate(-8deg); opacity: 0; }
+  50% { transform: scale(1.25) rotate(6deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+@keyframes gentle-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+@keyframes rise {
+  from { transform: translateY(14px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fill-cell {
+  from { transform: scale(0.4); }
+  to { transform: scale(1); }
+}
+@keyframes float-up {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-90px) scale(1.4); opacity: 0; }
+}
+@keyframes kalk-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes kalk-wave {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(16deg); }
+}
+
+.animate-pop-in { animation: pop-in 0.28s cubic-bezier(0.22, 1.2, 0.4, 1) both; }
+.animate-burst { animation: burst 0.5s cubic-bezier(0.22, 1.2, 0.4, 1) both; }
+.animate-shake { animation: gentle-shake 0.4s ease-in-out both; }
+.animate-rise { animation: rise 0.35s ease-out both; }
+.animate-fill { animation: fill-cell 0.3s ease-out both; }
+.animate-float-up { animation: float-up 0.9s ease-out forwards; }
+.animate-kalk-float { animation: kalk-float 5.2s ease-in-out infinite; }
+.animate-kalk-float-fast { animation: kalk-float 3.6s ease-in-out infinite; }
+.animate-kalk-wave { animation: kalk-wave 2.5s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
