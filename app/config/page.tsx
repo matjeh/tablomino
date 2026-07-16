@@ -60,21 +60,31 @@ export default function ConfigPage() {
   const [questionCount, setQuestionCount] = useState(10);
   const [ready, setReady] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [noQuestions, setNoQuestions] = useState(false);
 
   // Redirect out if no profile is selected.
   useEffect(() => {
     if (!loading && !current) router.replace('/');
   }, [loading, current, router]);
 
-  // Load the profile's last-used settings.
+  // Load the profile's last-used settings. A saved `targetTables` selection
+  // can go stale relative to the saved difficulty (e.g. it referenced tables
+  // 2-12 while difficulty has since implied only 2-5) and silently filter the
+  // fact universe down to nothing — fall back to "all tables" rather than
+  // carry forward a selection that can no longer match anything.
   useEffect(() => {
     if (!current) return;
     (async () => {
       const s = await getSettings(current.id!);
+      const validTables = availableTables('multiplication', s.difficulty);
+      const targetTables =
+        s.targetTables && s.targetTables.some((tbl) => validTables.includes(tbl))
+          ? s.targetTables
+          : null;
       setOperations(s.operations);
       setFormats(s.formats);
       setDifficulty(s.difficulty);
-      setTargetTables(s.targetTables);
+      setTargetTables(targetTables);
       setQuestionCount(s.questionCount);
       setReady(true);
     })();
@@ -84,17 +94,28 @@ export default function ConfigPage() {
   const tablesVisible = operations.some((op) => op !== 'addition');
   const tables = availableTables('multiplication', difficulty);
 
+  // Any selection change invalidates a previous "no questions" result.
   const toggleOperation = (op: Operation) => {
     const next = toggle(operations, op);
     setOperations(next);
     if (!next.some((o) => o !== 'addition')) setTargetTables(null);
+    setNoQuestions(false);
   };
-  const toggleFormat = (f: Format) => setFormats(toggle(formats, f));
+  const toggleFormat = (f: Format) => {
+    setFormats(toggle(formats, f));
+    setNoQuestions(false);
+  };
   const changeDifficulty = (d: Difficulty) => {
     setDifficulty(d);
     setTargetTables(null);
+    setNoQuestions(false);
+  };
+  const changeQuestionCount = (n: number) => {
+    setQuestionCount(n);
+    setNoQuestions(false);
   };
   const toggleTable = (tbl: number) => {
+    setNoQuestions(false);
     setTargetTables((prev) => {
       const current = prev ?? [];
       const next = current.includes(tbl)
@@ -107,6 +128,7 @@ export default function ConfigPage() {
   const startGame = async () => {
     if (!current || busy || operations.length === 0 || formats.length === 0) return;
     setBusy(true);
+    setNoQuestions(false);
     const config = {
       profileId: current.id!,
       operations,
@@ -119,6 +141,7 @@ export default function ConfigPage() {
     const questions = await buildSessionQuestions(config);
     if (questions.length === 0) {
       setBusy(false);
+      setNoQuestions(true);
       return;
     }
     start(config, questions);
@@ -223,7 +246,10 @@ export default function ConfigPage() {
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              onClick={() => setTargetTables(null)}
+              onClick={() => {
+                setTargetTables(null);
+                setNoQuestions(false);
+              }}
               className={`rounded-xl px-4 py-2 text-sm font-bold transition ${
                 targetTables === null
                   ? 'bg-violet-600 text-white'
@@ -255,12 +281,16 @@ export default function ConfigPage() {
         <span className="font-bold text-slate-600">{t('config.questionCount')}</span>
         <div className="flex flex-wrap gap-2">
           {QUESTION_COUNTS.map((n) => (
-            <Segment key={n} active={questionCount === n} onClick={() => setQuestionCount(n)}>
+            <Segment key={n} active={questionCount === n} onClick={() => changeQuestionCount(n)}>
               {n}
             </Segment>
           ))}
         </div>
       </section>
+
+      {noQuestions && (
+        <p className="text-center text-sm font-bold text-amber-600">{t('config.noQuestions')}</p>
+      )}
 
       <Button onClick={startGame} disabled={busy} className="mt-2 w-full">
         {t('config.start', { count: questionCount })} ▶
