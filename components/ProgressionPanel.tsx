@@ -5,7 +5,7 @@ import { useT } from '@/lib/i18n';
 import { getEarnedBadgeIds, loadFullUniverse } from '@/lib/repo';
 import { allBadgeIds } from '@/lib/badges';
 import { OPERATION_META, BOX_BG } from '@/lib/ui';
-import { Box, Fact, Format, OPERATION_SYMBOL, OPERATIONS, Operation } from '@/lib/types';
+import { Box, Fact, OPERATION_SYMBOL, OPERATIONS, Operation } from '@/lib/types';
 import { BadgeGrid } from './Badge';
 import { PythagoreGrid } from './PythagoreGrid';
 
@@ -41,11 +41,9 @@ function forDisplay(operation: Operation, facts: Fact[]): Fact[] {
 function OperationProgress({
   profileId,
   operation,
-  format,
 }: {
   profileId: number;
   operation: Operation;
-  format: Format;
 }) {
   const t = useT();
   const [facts, setFacts] = useState<Fact[]>([]);
@@ -56,7 +54,7 @@ function OperationProgress({
     let cancelled = false;
     (async () => {
       const [universe, earnedIds] = await Promise.all([
-        loadFullUniverse(profileId, operation, format, GRID_DIFFICULTY),
+        loadFullUniverse(profileId, operation, GRID_DIFFICULTY),
         getEarnedBadgeIds(profileId),
       ]);
       if (cancelled) return;
@@ -67,7 +65,7 @@ function OperationProgress({
     return () => {
       cancelled = true;
     };
-  }, [profileId, operation, format]);
+  }, [profileId, operation]);
 
   if (!ready) return <p className="py-6 text-center text-slate-300">…</p>;
 
@@ -102,11 +100,9 @@ function OperationProgress({
 export function ProgressionPanel({
   profileId,
   initialOperation = 'multiplication',
-  initialFormat = 'direct',
 }: {
   profileId: number;
   initialOperation?: Operation;
-  initialFormat?: Format;
 }) {
   const t = useT();
   const [operation, setOperation] = useState<Operation>(initialOperation);
@@ -133,12 +129,7 @@ export function ProgressionPanel({
         ))}
       </div>
 
-      <OperationProgress
-        key={operation}
-        profileId={profileId}
-        operation={operation}
-        format={initialFormat}
-      />
+      <OperationProgress key={operation} profileId={profileId} operation={operation} />
     </div>
   );
 }

@@ -58,7 +58,7 @@ describe('format triple/buildQuestion', () => {
   });
 
   it('direct format asks for the result', () => {
-    const q = buildQuestion(makeFact(7, 8, 0));
+    const q = buildQuestion(makeFact(7, 8, 0), 'direct');
     expect(q.answer).toBe(56);
     expect(q.prompt).toContain('7 × 8');
     expect(q.prompt).toContain('?');
@@ -66,8 +66,7 @@ describe('format triple/buildQuestion', () => {
 
   it('hole format asks for a missing operand', () => {
     const f = makeFact(7, 8, 0);
-    f.format = 'hole';
-    const q = buildQuestion(f, seeded(2));
+    const q = buildQuestion(f, 'hole', seeded(2));
     expect([7, 8]).toContain(q.answer);
     expect(q.prompt).toContain('56');
   });

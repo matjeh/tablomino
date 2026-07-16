@@ -1,7 +1,7 @@
 // Turn a Fact into a renderable Question (prompt string + numeric answer),
 // honouring the direct / à-trou format. Pure.
 
-import { Fact, OPERATION_SYMBOL, Question } from './types';
+import { Fact, Format, OPERATION_SYMBOL, Question } from './types';
 
 /**
  * The canonical equation `x ∘ y = z` for a fact. Division and subtraction are
@@ -37,13 +37,17 @@ function pick<T>(arr: T[], rng: () => number): T {
 }
 
 /**
- * Build the displayed question for a fact. For `hole` format the blank falls
- * on one of the two operands (chosen via rng); for `direct` it's the result.
+ * Build the displayed question for a fact in the given format. For `hole`
+ * the blank falls on one of the two operands (chosen via rng); for `direct`
+ * it's the result.
  */
-export function buildQuestion(fact: Fact, rng: () => number = Math.random): Question {
+export function buildQuestion(
+  fact: Fact,
+  format: Format = 'direct',
+  rng: () => number = Math.random,
+): Question {
   const { x, y, z, symbol } = triple(fact);
-  const pos: BlankPos =
-    fact.format === 'direct' ? 'result' : pick<BlankPos>(['x', 'y'], rng);
+  const pos: BlankPos = format === 'direct' ? 'result' : pick<BlankPos>(['x', 'y'], rng);
 
   let prompt: string;
   let answer: number;

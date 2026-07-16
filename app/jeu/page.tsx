@@ -10,6 +10,7 @@ import { QuestionCard } from '@/components/QuestionCard';
 import { MultipleChoice } from '@/components/MultipleChoice';
 import { NumericKeypad } from '@/components/NumericKeypad';
 import { FeedbackOverlay } from '@/components/FeedbackOverlay';
+import { ConfirmDialog } from '@/components/ConfirmDialog';
 
 export default function GamePage() {
   const router = useRouter();
@@ -21,6 +22,7 @@ export default function GamePage() {
   const [submitted, setSubmitted] = useState<number | null>(null);
   const [lastCorrect, setLastCorrect] = useState(false);
   const [entry, setEntry] = useState('');
+  const [confirmingQuit, setConfirmingQuit] = useState(false);
   const finalizedRef = useRef(false);
 
   const isMcq = config?.difficulty === 1;
@@ -70,11 +72,9 @@ export default function GamePage() {
     setPhase('answering');
   };
 
-  const quit = () => {
-    if (confirm(t('game.quitConfirm'))) {
-      session.reset();
-      router.replace('/config');
-    }
+  const confirmQuit = () => {
+    session.reset();
+    router.replace('/config');
   };
 
   const progressPct = (answered / total) * 100;
@@ -90,12 +90,22 @@ export default function GamePage() {
           />
         </div>
         <button
-          onClick={quit}
+          onClick={() => setConfirmingQuit(true)}
           className="text-sm font-semibold text-slate-400 hover:text-slate-600"
         >
           {t('game.quit')}
         </button>
       </div>
+
+      {confirmingQuit && (
+        <ConfirmDialog
+          message={t('game.quitConfirm')}
+          cancelLabel={t('game.quitConfirm.stay')}
+          confirmLabel={t('game.quitConfirm.leave')}
+          onCancel={() => setConfirmingQuit(false)}
+          onConfirm={confirmQuit}
+        />
+      )}
       <p className="text-center text-sm font-bold text-slate-400">
         {t('game.progress', { current: Math.min(answered + 1, total), total })}
       </p>

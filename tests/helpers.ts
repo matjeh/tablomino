@@ -12,11 +12,16 @@ export function seeded(seed: number): () => number {
   };
 }
 
-export function makeFact(a: number, b: number, box: Box, seen = box > 0 ? 3 : 0): Fact {
+export function makeFact(
+  a: number,
+  b: number,
+  box: Box,
+  seen = box > 0 ? 3 : 0,
+  recentResults: boolean[] = [],
+): Fact {
   return {
     profileId: 1,
     operation: 'multiplication',
-    format: 'direct',
     a,
     b,
     box,
@@ -24,5 +29,6 @@ export function makeFact(a: number, b: number, box: Box, seen = box > 0 ? 3 : 0)
     timesSeen: seen,
     timesCorrect: seen,
     lastSeen: seen > 0 ? 1 : 0,
+    recentResults,
   };
 }
