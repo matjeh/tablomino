@@ -34,7 +34,6 @@ If you spot a discrepancy between this table and the actual code, please open an
 🚧 Actively in development — MVP currently being built.
 
 MVP features: local multi-profiles, choice of operation/format/difficulty, 4-box spaced repetition engine, visual progress grid, badges.
-See [the MVP spec](./docs/tablomino-mvp-spec.md) *(adjust to the actual file location)* for details.
 
 ## Getting started (development)
 
