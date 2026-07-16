@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#d946ef"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#g)"/>
+  <g fill="#ffffff">
+    <!-- multiplication cross -->
+    <g transform="translate(256 220) rotate(45)">
+      <rect x="-104" y="-26" width="208" height="52" rx="26"/>
+      <rect x="-26" y="-104" width="52" height="208" rx="26"/>
+    </g>
+    <!-- three dots suggesting a grid / progression -->
+    <circle cx="176" cy="392" r="26"/>
+    <circle cx="256" cy="392" r="26" fill-opacity="0.75"/>
+    <circle cx="336" cy="392" r="26" fill-opacity="0.5"/>
+  </g>
+</svg>
