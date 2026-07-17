@@ -34,7 +34,7 @@ function PersistentStorageRequest() {
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <I18nProvider initialLocale="fr">
+    <I18nProvider>
       <ProfileProvider>
         <ActiveSessionProvider>
           <ServiceWorkerRegistrar />

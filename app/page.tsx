@@ -9,6 +9,7 @@ import { currentStreak } from '@/lib/badges';
 import { Button } from '@/components/Button';
 import { Kalk } from '@/components/Kalk';
 import { PlayerCard } from '@/components/PlayerCard';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 export default function ProfileSelectPage() {
   const router = useRouter();
@@ -73,13 +74,16 @@ export default function ProfileSelectPage() {
               backgroundSize: '26px 26px',
             }}
           />
-          <div className="relative flex items-center gap-2">
-            <span className="text-xl text-yellow-400" aria-hidden>
-              ✦
-            </span>
-            <span className="text-[22px] font-extrabold tracking-tight text-white">
-              {t('app.title')}
-            </span>
+          <div className="relative flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <span className="text-xl text-yellow-400" aria-hidden>
+                ✦
+              </span>
+              <span className="text-[22px] font-extrabold tracking-tight text-white">
+                {t('app.title')}
+              </span>
+            </div>
+            <LanguageSwitcher />
           </div>
           <div className="pointer-events-none absolute inset-x-0 -bottom-1 flex justify-center">
             <Kalk />
