@@ -12,11 +12,32 @@
 // resolve against months-old route data with no visible error. All game
 // data lives in IndexedDB, not here.
 
-const CACHE = 'tablomino-v2';
+const CACHE = 'tablomino-v3';
+
+// Every static route in the app, precached up front rather than waiting for
+// a first online visit -- otherwise a page you've never opened before (e.g.
+// Progression) has nothing to fall back to offline and silently resolves to
+// the wrong screen. `/profil/[id]` is server-rendered per profile and isn't
+// worth precaching (nothing generic to cache); it falls back to `/` offline.
+const PRECACHE_URLS = [
+  '/',
+  '/config',
+  '/jeu',
+  '/bilan',
+  '/progression',
+  '/profil/nouveau',
+  '/manifest.webmanifest',
+];
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
-  event.waitUntil(caches.open(CACHE).then((c) => c.add('/')));
+  event.waitUntil(
+    caches.open(CACHE).then((c) =>
+      // Individually, not addAll(): one route failing to fetch shouldn't
+      // block every other route from being precached.
+      Promise.all(PRECACHE_URLS.map((url) => c.add(url).catch(() => {}))),
+    ),
+  );
 });
 
 self.addEventListener('activate', (event) => {
