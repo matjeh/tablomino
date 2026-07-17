@@ -115,16 +115,17 @@ export function ProgressionPanel({
             key={op}
             type="button"
             onClick={() => setOperation(op)}
+            aria-label={t(`op.${op}`)}
             className={`flex min-w-0 flex-col items-center gap-1 rounded-2xl px-1 py-3 text-[0.7rem] font-bold transition sm:px-2 sm:text-xs ${
               operation === op
                 ? 'bg-gradient-to-r ' + OPERATION_META[op].accent + ' text-white shadow-md'
                 : 'bg-white text-slate-600 ring-2 ring-slate-200'
             }`}
           >
-            <span className="text-lg" aria-hidden>
+            <span className="text-2xl sm:text-lg" aria-hidden>
               {OPERATION_META[op].emoji}
             </span>
-            <span className="w-full break-words text-center leading-tight hyphens-auto">
+            <span className="hidden w-full break-words text-center leading-tight hyphens-auto sm:block">
               {t(`op.${op}`)}
             </span>
           </button>

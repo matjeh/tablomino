@@ -10,20 +10,35 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useState } from 'react';
 import fr from '@/messages/fr.json';
 import en from '@/messages/en.json';
+import de from '@/messages/de.json';
+import it from '@/messages/it.json';
+import es from '@/messages/es.json';
+import zh from '@/messages/zh.json';
+import pt from '@/messages/pt.json';
+import ar from '@/messages/ar.json';
 import { Operation } from './types';
 
-export type Locale = 'fr' | 'en';
+export type Locale = 'fr' | 'en' | 'de' | 'it' | 'es' | 'zh' | 'pt' | 'ar';
 
-const DICTS: Record<Locale, Record<string, string>> = { fr, en };
+const DICTS: Record<Locale, Record<string, string>> = { fr, en, de, it, es, zh, pt, ar };
 
 /** Every locale the app ships a complete translation for. */
-export const SUPPORTED_LOCALES: Locale[] = ['fr', 'en'];
+export const SUPPORTED_LOCALES: Locale[] = ['fr', 'en', 'de', 'it', 'es', 'zh', 'pt', 'ar'];
 
 /** Native-language display name, for the switcher UI. */
 export const LOCALE_LABELS: Record<Locale, string> = {
   fr: 'Français',
   en: 'English',
+  de: 'Deutsch',
+  it: 'Italiano',
+  es: 'Español',
+  zh: '中文',
+  pt: 'Português',
+  ar: 'العربية',
 };
+
+/** Locales read right-to-left; drives <html dir> so text and layout mirror correctly. */
+export const RTL_LOCALES: Locale[] = ['ar'];
 
 /** Used server-side (static prerender) and whenever detection can't resolve. */
 export const DEFAULT_LOCALE: Locale = 'fr';
@@ -96,6 +111,17 @@ export function I18nProvider({
     setLocaleState(l);
     if (typeof localStorage !== 'undefined') localStorage.setItem(STORAGE_KEY, l);
   }, []);
+
+  // Keep <html lang>/<html dir> in sync with the active locale -- Arabic
+  // needs dir="rtl" for text and layout to read correctly. Note: this only
+  // flips text direction and a handful of components that use logical
+  // (start/end) Tailwind utilities; most of the app's layout still assumes
+  // left-to-right and isn't mirrored, so Arabic reads correctly but the
+  // overall page layout isn't a full RTL redesign.
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    document.documentElement.dir = RTL_LOCALES.includes(locale) ? 'rtl' : 'ltr';
+  }, [locale]);
 
   const t = useCallback<TFunction>(
     (key, params) => {
