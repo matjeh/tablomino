@@ -1,9 +1,18 @@
 // Minimal offline service worker for Tablomino.
-// Strategy: network-first for navigations (fresh HTML when online, cached
-// fallback when offline); cache-first for other same-origin GET requests
-// (static assets / chunks). All game data lives in IndexedDB, not here.
+// Strategy: network-first (fresh when online, cached fallback when offline)
+// for everything EXCEPT immutable, content-hashed build assets under
+// `/_next/static/`, which are safe (and fast) to serve cache-first since
+// their URL changes whenever their content does.
+//
+// Next.js App Router client-side navigations (router.push) fetch route data
+// via plain same-URL `fetch()` calls, not `mode: 'navigate'` -- treating
+// those as cache-first (as an earlier version of this file did) let a stale
+// cached route response silently outlive its deploy: the URL never changes
+// across versions, so nothing ever invalidated it, and a `router.push` could
+// resolve against months-old route data with no visible error. All game
+// data lives in IndexedDB, not here.
 
-const CACHE = 'tablomino-v1';
+const CACHE = 'tablomino-v2';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -28,7 +37,9 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  if (request.mode === 'navigate') {
+  const isImmutableAsset = url.pathname.startsWith('/_next/static/');
+
+  if (!isImmutableAsset) {
     event.respondWith(
       fetch(request)
         .then((res) => {
