@@ -69,7 +69,7 @@ export default function BilanPage() {
 
       <div className="mt-2 flex w-full flex-col gap-3">
         <Button onClick={replay} disabled={busy} className="w-full">
-          {t('bilan.replay')} 🔁
+          {t('bilan.replay')}
         </Button>
         <Button
           variant="secondary"

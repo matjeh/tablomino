@@ -6,16 +6,21 @@ import { OPERATION_CHART_COLOR, OPERATION_META } from '@/lib/ui';
 import { GameSession, Operation } from '@/lib/types';
 
 const CHART_HEIGHT = 112; // px
+/** Fixed slot count so the bar chart's width/spacing stays constant however
+ * many games have actually been played -- fewer than this just leaves the
+ * remaining (most recent) slots empty rather than stretching bars wider. */
+const MAX_BARS = 20;
 
-/** Equal-width colour stripes, one per operation played in the game. */
-function barBackground(operations: Operation[]): string {
-  if (operations.length === 1) return OPERATION_CHART_COLOR[operations[0]];
-  const n = operations.length;
-  const stops = operations.map((op, i) => {
-    const color = OPERATION_CHART_COLOR[op];
-    return `${color} ${(i / n) * 100}% ${((i + 1) / n) * 100}%`;
-  });
-  return `linear-gradient(to right, ${stops.join(', ')})`;
+/** Equal-height colour bands stacked top-to-bottom, one per operation played
+ * in the game -- a true stacked bar rather than side-by-side stripes. */
+function StackedBar({ operations }: { operations: Operation[] }) {
+  return (
+    <div className="flex h-full w-full flex-col overflow-hidden rounded-t-md">
+      {operations.map((op) => (
+        <div key={op} className="w-full flex-1" style={{ background: OPERATION_CHART_COLOR[op] }} />
+      ))}
+    </div>
+  );
 }
 
 function GameDetail({
@@ -94,8 +99,11 @@ export function SessionHistoryChart({ sessions }: { sessions: GameSession[] }) {
     );
   }
 
-  // Oldest first so the chart reads left-to-right as time passing.
+  // Oldest first so the chart reads left-to-right as time passing; pad with
+  // empty trailing slots up to MAX_BARS so bar width/spacing never depends
+  // on how many games have actually been played yet.
   const ordered = [...sessions].reverse();
+  const emptySlots = Math.max(0, MAX_BARS - ordered.length);
 
   return (
     <section className="rounded-3xl bg-white/80 p-5 shadow-lg ring-1 ring-white">
@@ -115,15 +123,17 @@ export function SessionHistoryChart({ sessions }: { sessions: GameSession[] }) {
               })}
             >
               <div
-                className="w-full rounded-t-md transition group-hover:brightness-110"
-                style={{
-                  height: `${Math.max(rate * 100, 4)}%`,
-                  background: barBackground(session.operations),
-                }}
-              />
+                className="w-full transition group-hover:brightness-110"
+                style={{ height: `${Math.max(rate * 100, 4)}%` }}
+              >
+                <StackedBar operations={session.operations} />
+              </div>
             </button>
           );
         })}
+        {Array.from({ length: emptySlots }, (_, i) => (
+          <div key={`empty-${i}`} className="h-full flex-1" aria-hidden />
+        ))}
       </div>
 
       {selected && <GameDetail session={selected} onClose={() => setSelected(null)} />}
