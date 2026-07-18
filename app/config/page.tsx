@@ -155,12 +155,19 @@ export default function ConfigPage() {
   return (
     <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-6 px-5 py-8">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => {
+            clearSelection();
+            router.push('/');
+          }}
+          className="flex items-center gap-2"
+        >
           <span className="text-3xl" aria-hidden>
             {current.avatar}
           </span>
           <span className="text-lg font-bold text-slate-600">{current.name}</span>
-        </div>
+        </button>
         <div className="flex items-center gap-3">
           <button
             onClick={() => router.push('/progression')}
