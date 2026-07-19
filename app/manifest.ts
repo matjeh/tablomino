@@ -1,5 +1,9 @@
 import type { MetadataRoute } from 'next';
 
+// Required for `output: 'export'` (the Capacitor build) -- metadata route
+// handlers need an explicit static-generation opt-in there.
+export const dynamic = 'force-static';
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Tablomino',

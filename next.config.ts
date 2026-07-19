@@ -1,26 +1,20 @@
 import type { NextConfig } from "next";
+import { CSP } from "./lib/csp";
 
-// Content-Security-Policy: the app is 100% local/offline, so this locks the
-// origin down to itself — defense-in-depth against ever accidentally pulling
-// in a third-party script/tracker, and hardens the Android TWA's WebView
-// (which renders this site full-screen with no browser chrome).
-const CSP = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data:",
-  "font-src 'self' data:",
-  "connect-src 'self'",
-  "worker-src 'self'",
-  "frame-src 'none'",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'self'",
-].join('; ');
+// BUILD_TARGET=capacitor produces a static export (`out/`) for the native
+// Android/iOS apps -- Capacitor's WebView loads bundled local files, not a
+// live server, so there's nothing to run `next start` against. The default
+// (no env var) build stays exactly as it was: a normal server-rendered
+// build, kept for continuity even though the live OVH deploy is now frozen
+// as of the SQLite/Capacitor migration (see project notes).
+const isCapacitor = process.env.BUILD_TARGET === 'capacitor';
 
 const nextConfig: NextConfig = {
+  ...(isCapacitor ? { output: 'export' as const } : {}),
+  // Unsupported (silently no-op) under `output: 'export'` -- the Capacitor
+  // build's CSP is instead delivered via a <meta> tag in app/layout.tsx.
   async headers() {
+    if (isCapacitor) return [];
     return [
       {
         source: '/:path*',

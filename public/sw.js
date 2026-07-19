@@ -17,14 +17,14 @@ const CACHE = 'tablomino-v3';
 // Every static route in the app, precached up front rather than waiting for
 // a first online visit -- otherwise a page you've never opened before (e.g.
 // Progression) has nothing to fall back to offline and silently resolves to
-// the wrong screen. `/profil/[id]` is server-rendered per profile and isn't
-// worth precaching (nothing generic to cache); it falls back to `/` offline.
+// the wrong screen.
 const PRECACHE_URLS = [
   '/',
   '/config',
   '/jeu',
   '/bilan',
   '/progression',
+  '/profil',
   '/profil/nouveau',
   '/manifest.webmanifest',
 ];
