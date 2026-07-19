@@ -7,6 +7,7 @@ import { useT } from '@/lib/i18n';
 import { buildSessionQuestions } from '@/lib/game-flow';
 import { BadgeChip } from '@/components/Badge';
 import { Button } from '@/components/Button';
+import { LoadingScreen } from '@/components/LoadingScreen';
 
 export default function BilanPage() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function BilanPage() {
   }, [result, router]);
 
   if (!result) {
-    return <main className="flex flex-1 items-center justify-center text-slate-300">…</main>;
+    return <LoadingScreen />;
   }
 
   const { score, total, newBadges } = result;

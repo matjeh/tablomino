@@ -37,7 +37,6 @@
   "config.questionCount": "Número de preguntas",
   "config.noQuestions": "No hay preguntas disponibles con esta selección. Prueba otra tabla u operación.",
   "config.start": "Jugar {count} preguntas",
-  "config.change": "Cambiar de jugador",
   "config.progress": "Mi progreso",
 
   "op.multiplication": "Multiplicación",

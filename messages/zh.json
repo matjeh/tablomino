@@ -37,7 +37,6 @@
   "config.questionCount": "题目数量",
   "config.noQuestions": "此选择没有可用的题目。请尝试其他表或运算。",
   "config.start": "开始{count}道题",
-  "config.change": "更换玩家",
   "config.progress": "我的进度",
 
   "op.multiplication": "乘法",

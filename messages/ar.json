@@ -37,7 +37,6 @@
   "config.questionCount": "عدد الأسئلة",
   "config.noQuestions": "لا توجد أسئلة متاحة بهذا الاختيار. جرّب جدولاً أو عملية أخرى.",
   "config.start": "العب {count} سؤال",
-  "config.change": "تغيير اللاعب",
   "config.progress": "تقدمي",
 
   "op.multiplication": "الضرب",

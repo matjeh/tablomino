@@ -37,7 +37,6 @@
   "config.questionCount": "Anzahl der Fragen",
   "config.noQuestions": "Keine Fragen mit dieser Auswahl verfügbar. Probiere eine andere Reihe oder Rechenart.",
   "config.start": "{count} Fragen spielen",
-  "config.change": "Spieler wechseln",
   "config.progress": "Mein Fortschritt",
 
   "op.multiplication": "Multiplikation",

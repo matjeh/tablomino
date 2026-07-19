@@ -11,6 +11,7 @@ import { MultipleChoice } from '@/components/MultipleChoice';
 import { NumericKeypad } from '@/components/NumericKeypad';
 import { FeedbackOverlay } from '@/components/FeedbackOverlay';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
+import { LoadingScreen } from '@/components/LoadingScreen';
 
 export default function GamePage() {
   const router = useRouter();
@@ -55,7 +56,7 @@ export default function GamePage() {
   }, [status]);
 
   if (status !== 'playing' || !current) {
-    return <main className="flex flex-1 items-center justify-center text-slate-300">…</main>;
+    return <LoadingScreen />;
   }
 
   const reveal = (value: number) => {
