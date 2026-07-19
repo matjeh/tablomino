@@ -11,6 +11,8 @@ import { buildSessionQuestions } from '@/lib/game-flow';
 import { DIFFICULTIES, OPERATION_META, QUESTION_COUNTS } from '@/lib/ui';
 import { Difficulty, Format, Operation, OPERATIONS } from '@/lib/types';
 import { Button } from '@/components/Button';
+import { LoadingScreen } from '@/components/LoadingScreen';
+import { PageNav } from '@/components/PageNav';
 
 function Segment({
   active,
@@ -50,7 +52,7 @@ function toggle<T>(list: T[], item: T, min = 1): T[] {
 export default function ConfigPage() {
   const router = useRouter();
   const t = useT();
-  const { current, loading, clearSelection } = useProfiles();
+  const { current, loading } = useProfiles();
   const { start } = useActiveSession();
 
   const [operations, setOperations] = useState<Operation[]>(['multiplication']);
@@ -149,43 +151,12 @@ export default function ConfigPage() {
   };
 
   if (loading || !current || !ready) {
-    return <main className="flex flex-1 items-center justify-center text-slate-300">…</main>;
+    return <LoadingScreen />;
   }
 
   return (
     <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-6 px-5 py-8">
-      <div className="flex items-center justify-between">
-        <button
-          type="button"
-          onClick={() => {
-            clearSelection();
-            router.push('/');
-          }}
-          className="flex items-center gap-2"
-        >
-          <span className="text-3xl" aria-hidden>
-            {current.avatar}
-          </span>
-          <span className="text-lg font-bold text-slate-600">{current.name}</span>
-        </button>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => router.push('/progression')}
-            className="text-sm font-semibold text-violet-500 hover:text-violet-700"
-          >
-            📊 {t('config.progress')}
-          </button>
-          <button
-            onClick={() => {
-              clearSelection();
-              router.push('/');
-            }}
-            className="text-sm font-semibold text-slate-400 hover:text-slate-600"
-          >
-            {t('config.change')}
-          </button>
-        </div>
-      </div>
+      <PageNav current="config" profile={current} />
 
       <h1 className="text-3xl font-black text-slate-700">{t('config.title')}</h1>
 
