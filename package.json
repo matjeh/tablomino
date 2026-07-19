@@ -6,24 +6,30 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:capacitor": "cross-env BUILD_TARGET=capacitor next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "dexie": "^4.4.4",
-    "next": "16.2.10",
+    "@capacitor-community/sqlite": "^8.1.0",
+    "@capacitor/android": "^8.4.2",
+    "@capacitor/core": "^8.4.2",
+    "next": "^16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.4.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "puppeteer-core": "^25.3.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.10"

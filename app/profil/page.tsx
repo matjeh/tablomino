@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useProfiles } from '@/lib/profile-context';
 import { useT } from '@/lib/i18n';
 import { getProfile } from '@/lib/repo';
@@ -9,10 +9,17 @@ import { Profile } from '@/lib/types';
 import { AvatarPicker } from '@/components/AvatarPicker';
 import { ProgressionPanel } from '@/components/ProgressionPanel';
 import { Button } from '@/components/Button';
+import { LoadingScreen } from '@/components/LoadingScreen';
 
-export default function ProfilePage() {
-  const params = useParams<{ id: string }>();
-  const profileId = Number(params.id);
+// Query-param route (?id=123) rather than a dynamic [id] path segment: a
+// static export needs every dynamic route enumerable via
+// generateStaticParams(), which is structurally impossible here -- profile
+// IDs are runtime-generated SQLite autoincrement integers, unknowable at
+// build time. useSearchParams() requires a Suspense boundary when the page
+// is statically prerendered, hence the wrapper below.
+function ProfileEditor() {
+  const searchParams = useSearchParams();
+  const profileId = Number(searchParams.get('id'));
   const router = useRouter();
   const t = useT();
   const { removeProfile, updateAvatar } = useProfiles();
@@ -52,7 +59,7 @@ export default function ProfilePage() {
   };
 
   if (!profile) {
-    return <main className="flex flex-1 items-center justify-center text-slate-300">…</main>;
+    return <LoadingScreen />;
   }
 
   return (
@@ -86,5 +93,13 @@ export default function ProfilePage() {
         {t('profile.edit.delete')}
       </Button>
     </main>
+  );
+}
+
+export default function ProfilePage() {
+  return (
+    <Suspense fallback={<LoadingScreen />}>
+      <ProfileEditor />
+    </Suspense>
   );
 }

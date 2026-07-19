@@ -112,7 +112,7 @@ export default function ProfileSelectPage() {
                   streakLabel={streakLabel(streaks[p.id!] ?? 0)}
                   correctCount={correctCounts[p.id!] ?? 0}
                   onPlay={() => choose(p.id!)}
-                  onAvatarClick={() => router.push(`/profil/${p.id}`)}
+                  onAvatarClick={() => router.push(`/profil?id=${p.id}`)}
                   avatarLabel={t('profile.edit.avatarButtonLabel', { name: p.name })}
                 />
               ))

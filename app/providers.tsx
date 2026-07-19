@@ -1,32 +1,24 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
+import { Capacitor } from '@capacitor/core';
 import { I18nProvider } from '@/lib/i18n';
 import { ProfileProvider } from '@/lib/profile-context';
 import { ActiveSessionProvider } from '@/lib/active-session';
 
-/** Registers the service worker for offline/PWA support (browser only). */
+/**
+ * Registers the service worker for offline/PWA support. Skipped inside a
+ * Capacitor native shell: the whole build is already bundled into the app
+ * package, so there's nothing to be offline-first about, and a registered
+ * SW risks serving stale content across app-binary updates.
+ */
 function ServiceWorkerRegistrar() {
   useEffect(() => {
+    if (Capacitor.isNativePlatform()) return;
     if (typeof navigator === 'undefined' || !('serviceWorker' in navigator)) return;
     if (process.env.NODE_ENV !== 'production') return;
     navigator.serviceWorker.register('/sw.js').catch(() => {
       /* offline support is best-effort */
-    });
-  }, []);
-  return null;
-}
-
-/**
- * Asks the browser not to silently evict this origin's IndexedDB data under
- * storage pressure (Android can otherwise clear "best-effort" storage for
- * rarely-used origins). Standard web storage, unaffected by app updates.
- */
-function PersistentStorageRequest() {
-  useEffect(() => {
-    if (typeof navigator === 'undefined' || !navigator.storage?.persist) return;
-    navigator.storage.persist().catch(() => {
-      /* best-effort; the app still works without it */
     });
   }, []);
   return null;
@@ -38,7 +30,6 @@ export function Providers({ children }: { children: ReactNode }) {
       <ProfileProvider>
         <ActiveSessionProvider>
           <ServiceWorkerRegistrar />
-          <PersistentStorageRequest />
           {children}
         </ActiveSessionProvider>
       </ProfileProvider>

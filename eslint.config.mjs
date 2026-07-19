@@ -17,6 +17,10 @@ const eslintConfig = defineConfig([
     "ds-bundle/**",
     // design handoff references (prototypes, not app source)
     "Design/**",
+    // native Capacitor projects (generated Gradle/Xcode projects + copied
+    // web build output, not hand-written app source)
+    "android/**",
+    "ios/**",
   ]),
 ]);
 
