@@ -21,14 +21,14 @@ export function PythagoreGrid({
   for (const f of facts) boxOf.set(`${f.a}:${f.b}`, f.box);
 
   const headCell =
-    'flex items-center justify-center text-[0.7rem] font-bold text-slate-400 sm:text-xs';
+    'flex items-center justify-center text-[0.6rem] font-bold text-slate-400 sm:text-xs';
 
   return (
     <div className="overflow-x-auto">
       <div
-        className="mx-auto grid w-full max-w-xl gap-1 sm:max-w-2xl"
+        className="mx-auto grid w-full max-w-xl gap-0.5 [--cell-min:1.15rem] sm:max-w-2xl sm:gap-1 sm:[--cell-min:1.6rem]"
         style={{
-          gridTemplateColumns: `1.6rem repeat(${cols.length}, minmax(1.6rem, 1fr))`,
+          gridTemplateColumns: `var(--cell-min) repeat(${cols.length}, minmax(var(--cell-min), 1fr))`,
         }}
       >
         <div className={`${headCell} text-slate-300`}>{symbol}</div>
