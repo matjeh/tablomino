@@ -8,7 +8,14 @@ A free app for learning multiplication tables (addition, subtraction, multiplica
 
 Tablomino helps children memorize their tables using a spaced repetition system (Leitner method) that automatically adapts the questions asked: facts that aren't yet mastered come back more often, while mastered facts are spaced out further.
 
-No internet connection required after the first load (installable PWA), no data sent to any server, no account needed.
+Distributed as a native Android app (built with [Capacitor](https://capacitorjs.com/); iOS support planned). Works fully offline, no data sent to any server, no account needed.
+
+## Languages
+
+French, English, German, Italian, Spanish, Portuguese, Chinese, and Arabic
+(with right-to-left layout). The app auto-detects the device's language on
+first launch and can be switched manually at any time — see `lib/i18n.tsx`
+and `messages/*.json`.
 
 ## 🔍 Transparency & privacy — verifiable, not just promised
 
@@ -18,7 +25,7 @@ This project is open source precisely so that this promise doesn't rely on trust
 |---|---|
 | No trackers / analytics | No analytics dependency in `package.json`. Search for `fetch(`, `XMLHttpRequest`, or `axios` in `app/`, `components/`, `lib/`: the only network call is the service worker's same-origin asset caching (`public/sw.js`). |
 | No advertising | No ad SDK in the dependencies. Search for `ads` or `advertising` in `package.json`: no results. |
-| No data sent anywhere | All progress (profiles, Leitner scores, badges) is stored locally via IndexedDB — see `lib/db.ts` (schema) and `lib/repo.ts` (data access). There's no backend in this repo. |
+| No data sent anywhere | All progress (profiles, Leitner scores, badges) is stored locally in a native SQLite database — see `lib/db.ts` (schema) and `lib/repo.ts` (data access). There's no backend in this repo. |
 | No account required | No authentication flow in the code — no login/auth directory or dependency anywhere in the repo. |
 
 A [CI check](.github/workflows/ci.yml) (`scripts/check-no-tracking.sh`) runs this same
@@ -28,8 +35,8 @@ If you spot a discrepancy between this table and the actual code, please open an
 
 ## Tech stack
 
-- Next.js (App Router) — PWA with a service worker for offline functionality
-- IndexedDB (Dexie.js) — local storage for profiles and progress
+- Next.js (App Router), packaged as a native app via [Capacitor](https://capacitorjs.com/)
+- SQLite (native, via `@capacitor-community/sqlite`) — local storage for profiles and progress
 - No backend required for core functionality
 
 ## Project status
@@ -37,9 +44,8 @@ If you spot a discrepancy between this table and the actual code, please open an
 🚧 Actively in development. Built so far: local multi-profiles, all four
 operations with configurable session mix (operation/format/table/question
 count), a 4-box spaced-repetition engine, a visual progress grid per
-operation, and badges (table mastery, streaks, lifetime milestones). Next up:
-an Android release (see [LICENSE](./LICENSE) — same code, packaged as a
-Trusted Web Activity).
+operation, and badges (table mastery, streaks, lifetime milestones). Android
+app built and working; iOS is next, pending access to a Mac for the build.
 
 ## Getting started (development)
 
@@ -53,11 +59,24 @@ npm run dev        # start the dev server at http://localhost:3000
 Other useful scripts:
 
 ```bash
-npm run build      # production build
-npm run start       # run the production build
-npm test            # run the test suite (Vitest)
-npm run typecheck   # TypeScript check
-npm run lint         # ESLint
+npm run build             # production web build
+npm run build:capacitor   # static export for the native Android/iOS build
+npm run start             # run the production web build
+npm test                  # run the test suite (Vitest)
+npm run typecheck         # TypeScript check
+npm run lint               # ESLint
+```
+
+**Note:** storage runs on native SQLite (`@capacitor-community/sqlite`), which has no
+browser implementation set up in this project. `npm run dev`/`npm run build` are still
+useful for iterating on UI, layout, and translations, but any screen that touches
+profile data won't work in a plain browser tab. To run the full app, build the native
+Android project:
+
+```bash
+npm run build:capacitor
+npx cap sync android
+cd android && ./gradlew assembleDebug   # or open android/ in Android Studio
 ```
 
 ## License
