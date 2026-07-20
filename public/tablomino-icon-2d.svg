@@ -1,49 +1,206 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="1024" height="1024">
-  <defs>
-    <clipPath id="sq">
-      <path d="M50 2 C13 2 2 13 2 50 C2 87 13 98 50 98 C87 98 98 87 98 50 C98 13 87 2 50 2 Z"></path>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 100 100"
+   width="1024"
+   height="1024"
+   version="1.1"
+   id="svg16"
+   sodipodi:docname="tablomino-icon-2d.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview16"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.56347656"
+     inkscape:cx="361.15078"
+     inkscape:cy="494.25303"
+     inkscape:window-width="1440"
+     inkscape:window-height="821"
+     inkscape:window-x="-7"
+     inkscape:window-y="-7"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg16" />
+  <defs
+     id="defs1">
+    <clipPath
+       id="sq">
+      <path
+         d="M50 2 C13 2 2 13 2 50 C2 87 13 98 50 98 C87 98 98 87 98 50 C98 13 87 2 50 2 Z"
+         id="path1" />
     </clipPath>
   </defs>
-  <g clip-path="url(#sq)">
-    
-    <rect width="100" height="100" fill="#2b2f4c"></rect>
-
-    
-    
-    <g transform="translate(19,10) scale(0.65)" fill="none" stroke="#3bb878" stroke-width="7" stroke-linecap="round">
-      <path d="M20 8 V32 M8 20 H32"></path>
+  <g
+     clip-path="url(#sq)"
+     id="g16"
+     style="opacity:1"
+     transform="matrix(1.0434027,0,0,1.0434027,-2.0475868,-2.0475868)">
+    <rect
+       width="100"
+       height="100"
+       fill="#2b2f4c"
+       id="rect1"
+       style="display:inline;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       ry="0"
+       x="0"
+       y="0" />
+    <g
+       transform="matrix(0.65,0,0,0.65,19,10)"
+       fill="none"
+       stroke="#3bb878"
+       stroke-width="7"
+       stroke-linecap="round"
+       id="g2"
+       style="display:inline">
+      <path
+         d="M 20,8 V 32 M 8,20 h 24"
+         id="path2" />
     </g>
-    
-    <g transform="translate(55,10) scale(0.65)" fill="none" stroke="#bf5cf0" stroke-width="7" stroke-linecap="round">
-      <path d="M11 11 L29 29 M29 11 L11 29"></path>
+    <g
+       transform="matrix(0.65,0,0,0.65,55,10)"
+       fill="none"
+       stroke="#bf5cf0"
+       stroke-width="7"
+       stroke-linecap="round"
+       id="g3"
+       style="display:inline">
+      <path
+         d="M 11,11 29,29 M 29,11 11,29"
+         id="path3" />
     </g>
-    
-    <g transform="translate(19,40) scale(0.65)" fill="none" stroke="#ee8a1c" stroke-width="7" stroke-linecap="round">
-      <path d="M8 20 H32"></path>
+    <g
+       transform="matrix(0.65,0,0,0.65,19,40)"
+       fill="none"
+       stroke="#ee8a1c"
+       stroke-width="7"
+       stroke-linecap="round"
+       id="g4"
+       style="display:inline">
+      <path
+         d="M 8,20 H 32"
+         id="path4" />
     </g>
-    
-    <g transform="translate(55,40) scale(0.65)">
-      <circle cx="20" cy="10" r="3.4" fill="#4aa6ea"></circle>
-      <path d="M8 20 H32" fill="none" stroke="#4aa6ea" stroke-width="7" stroke-linecap="round"></path>
-      <circle cx="20" cy="30" r="3.4" fill="#4aa6ea"></circle>
+    <g
+       transform="matrix(0.65,0,0,0.65,55,40)"
+       id="g5"
+       style="display:inline">
+      <circle
+         cx="20"
+         cy="10"
+         r="3.4000001"
+         fill="#4aa6ea"
+         id="circle4" />
+      <path
+         d="M 8,20 H 32"
+         fill="none"
+         stroke="#4aa6ea"
+         stroke-width="7"
+         stroke-linecap="round"
+         id="path5" />
+      <circle
+         cx="20"
+         cy="30"
+         r="3.4000001"
+         fill="#4aa6ea"
+         id="circle5" />
     </g>
-
-    
-    <g transform="translate(7,66) scale(0.86)">
-      <path d="M43 48 L36 22" stroke="#5cb789" stroke-width="5" fill="none" stroke-linecap="round"></path>
-      <path d="M57 48 L64 22" stroke="#5cb789" stroke-width="5" fill="none" stroke-linecap="round"></path>
-      <circle cx="35" cy="15" r="7" fill="#fff"></circle>
-      <circle cx="35" cy="15" r="3.2" fill="#15181f"></circle>
-      <circle cx="65" cy="15" r="7" fill="#fff"></circle>
-      <circle cx="65" cy="15" r="3.2" fill="#15181f"></circle>
-      <path d="M50 46 L50 26" stroke="#5cb789" stroke-width="4" stroke-linecap="round"></path>
-      <circle cx="50" cy="22" r="4.5" fill="#f0be2c"></circle>
-      <ellipse cx="50" cy="62" rx="32" ry="34" fill="#6bc397"></ellipse>
-      <circle cx="50" cy="58" r="17" fill="#8fd8ac"></circle>
-      <circle cx="50" cy="58" r="13.5" fill="#12182b"></circle>
-      <circle cx="49" cy="59" r="6.5" fill="#5c9be8"></circle>
-      <circle cx="46.5" cy="56" r="2.4" fill="#fff"></circle>
-      <path d="M38 78 Q50 76 62 78 Q60 90 50 90 Q40 90 38 78 Z" fill="#1f4d39"></path>
+    <g
+       transform="matrix(0.86,0,0,0.86,7,66)"
+       id="g15"
+       style="display:inline">
+      <path
+         d="M 43,48 36,22"
+         stroke="#5cb789"
+         stroke-width="5"
+         fill="none"
+         stroke-linecap="round"
+         id="path6" />
+      <path
+         d="M 57,48 64,22"
+         stroke="#5cb789"
+         stroke-width="5"
+         fill="none"
+         stroke-linecap="round"
+         id="path7" />
+      <circle
+         cx="35"
+         cy="15"
+         r="7"
+         fill="#ffffff"
+         id="circle7" />
+      <circle
+         cx="35"
+         cy="15"
+         r="3.2"
+         fill="#15181f"
+         id="circle8" />
+      <circle
+         cx="65"
+         cy="15"
+         r="7"
+         fill="#ffffff"
+         id="circle9" />
+      <circle
+         cx="65"
+         cy="15"
+         r="3.2"
+         fill="#15181f"
+         id="circle10" />
+      <path
+         d="M 50,46 V 26"
+         stroke="#5cb789"
+         stroke-width="4"
+         stroke-linecap="round"
+         id="path10" />
+      <circle
+         cx="50"
+         cy="22"
+         r="4.5"
+         fill="#f0be2c"
+         id="circle11" />
+      <ellipse
+         cx="50"
+         cy="62"
+         rx="32"
+         ry="34"
+         fill="#6bc397"
+         id="ellipse11" />
+      <circle
+         cx="50"
+         cy="58"
+         r="17"
+         fill="#8fd8ac"
+         id="circle12" />
+      <circle
+         cx="50"
+         cy="58"
+         r="13.5"
+         fill="#12182b"
+         id="circle13" />
+      <circle
+         cx="49"
+         cy="59"
+         r="6.5"
+         fill="#5c9be8"
+         id="circle14" />
+      <circle
+         cx="46.5"
+         cy="56"
+         r="2.4000001"
+         fill="#ffffff"
+         id="circle15" />
+      <path
+         d="M 38,78 Q 50,76 62,78 60,90 50,90 40,90 38,78 Z"
+         fill="#1f4d39"
+         id="path15" />
     </g>
   </g>
 </svg>
