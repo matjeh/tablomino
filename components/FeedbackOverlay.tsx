@@ -4,7 +4,11 @@ import { useState } from 'react';
 import { useT } from '@/lib/i18n';
 import { Button } from './Button';
 
-const CHEERS = ['🎉', '🌟', '💥', '🥳', '✨'];
+const CHEERS = [
+  '🎉', '🌟', '💥', '🥳', '✨',
+  '🏆', '🎯', '🔥', '⭐', '🤩', '😎', '🙌', '👏', '🎇', '🌠',
+  '🦋', '🌻', '⚡', '💫', '✅', '👍', '💚', '🔆',
+];
 
 /**
  * Positive-reinforcement feedback. Correct = celebratory burst. Wrong =
