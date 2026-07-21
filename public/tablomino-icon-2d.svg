@@ -22,13 +22,13 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="0.56347656"
      inkscape:cx="361.15078"
-     inkscape:cy="494.25303"
+     inkscape:cy="487.15425"
      inkscape:window-width="1440"
      inkscape:window-height="821"
      inkscape:window-x="-7"
      inkscape:window-y="-7"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg16" />
+     inkscape:current-layer="g16" />
   <defs
      id="defs1">
     <clipPath
@@ -53,7 +53,7 @@
        x="0"
        y="0" />
     <g
-       transform="matrix(0.65,0,0,0.65,19,10)"
+       transform="matrix(0.78744704,0,0,0.78744704,14.748354,14.364518)"
        fill="none"
        stroke="#3bb878"
        stroke-width="7"
@@ -65,7 +65,7 @@
          id="path2" />
     </g>
     <g
-       transform="matrix(0.65,0,0,0.65,55,10)"
+       transform="matrix(0.78744704,0,0,0.78744704,55.740173,14.364518)"
        fill="none"
        stroke="#bf5cf0"
        stroke-width="7"
@@ -83,7 +83,7 @@
        stroke-width="7"
        stroke-linecap="round"
        id="g4"
-       style="display:inline">
+       style="display:none">
       <path
          d="M 8,20 H 32"
          id="path4" />
@@ -91,7 +91,7 @@
     <g
        transform="matrix(0.65,0,0,0.65,55,40)"
        id="g5"
-       style="display:inline">
+       style="display:none">
       <circle
          cx="20"
          cy="10"
@@ -113,7 +113,7 @@
          id="circle5" />
     </g>
     <g
-       transform="matrix(0.86,0,0,0.86,7,66)"
+       transform="matrix(1.3092278,0,0,1.3092278,-14.69128,40.325454)"
        id="g15"
        style="display:inline">
       <path
