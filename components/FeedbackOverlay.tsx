@@ -10,6 +10,32 @@ const CHEERS = [
   '🦋', '🌻', '⚡', '💫', '✅', '👍', '💚', '🔆',
 ];
 
+// Shuffled "bag": draw without replacement, reshuffle once empty. Guarantees
+// every cheer is shown once per full cycle (plain Math.random on every mount
+// could -- and did -- repeat the same emoji back-to-back). Module-level so
+// the bag persists across FeedbackOverlay's remounts each question.
+let bag: string[] = [];
+let lastCheer: string | null = null;
+
+function drawCheer(): string {
+  if (bag.length === 0) {
+    bag = [...CHEERS];
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
+    // The next draw comes from the end (bag.pop()) -- if a fresh shuffle
+    // happens to end with the same cheer that just finished the previous
+    // bag, swap it away so consecutive draws are never equal.
+    if (bag[bag.length - 1] === lastCheer) {
+      const swapIndex = Math.floor(Math.random() * (bag.length - 1));
+      [bag[bag.length - 1], bag[swapIndex]] = [bag[swapIndex], bag[bag.length - 1]];
+    }
+  }
+  lastCheer = bag.pop()!;
+  return lastCheer;
+}
+
 /**
  * Positive-reinforcement feedback. Correct = celebratory burst. Wrong =
  * gentle, shows the right answer (no aggressive red). Both offer "continue".
@@ -26,8 +52,8 @@ export function FeedbackOverlay({
 }) {
   const t = useT();
   const correct = state === 'correct';
-  // Pick once per mount; Math.random in render body is impure.
-  const [cheer] = useState(() => CHEERS[Math.floor(Math.random() * CHEERS.length)]);
+  // Draw once per mount; Math.random in render body is impure.
+  const [cheer] = useState(drawCheer);
 
   return (
     <div className="flex flex-col items-center gap-5 text-center">
