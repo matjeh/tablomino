@@ -9,6 +9,13 @@
 //   server to emit it). `frame-ancestors` can't be expressed via `<meta>` and
 //   is dropped in that variant (see CSP_DIRECTIVES_META) -- low risk since
 //   there's no server to be framed inside a Capacitor WebView anyway.
+//
+// script-src starts with 'unsafe-inline' here as a build-time placeholder --
+// scripts/harden-csp.mjs (run as part of `build:capacitor`) replaces it with
+// per-page sha256 hashes of Next's actual inline hydration scripts in the
+// exported out/*.html, so the shipped Capacitor app never actually ships
+// 'unsafe-inline'. The server build has no equivalent per-route post-process
+// step, so it keeps 'unsafe-inline' as-is.
 
 export const CSP_DIRECTIVES = [
   "default-src 'self'",
