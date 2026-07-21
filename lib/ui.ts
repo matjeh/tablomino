@@ -2,7 +2,10 @@
 
 import { Box, Difficulty, Operation } from './types';
 
-export const AVATARS = ['🦊', '🐼', '🚀', '🦄', '🐙', '🐸', '🦁', '🐳'];
+export const AVATARS = [
+  '🦊', '🐼', '🚀', '🦄', '🐙', '🐸', '🦁', '🐳',
+  '🐧', '🦉', '🐬', '🦩',
+];
 
 /** Per-avatar accent (badge gradient + card ring) for the player-card design. */
 export const AVATAR_ACCENTS: Record<string, { gradient: string; ring: string }> = {
@@ -14,6 +17,10 @@ export const AVATAR_ACCENTS: Record<string, { gradient: string; ring: string }> 
   '🐸': { gradient: 'linear-gradient(135deg,#4ade80,#22d3ee)', ring: '#f0fdf4' },
   '🦁': { gradient: 'linear-gradient(135deg,#fbbf24,#fb923c)', ring: '#fffbeb' },
   '🐳': { gradient: 'linear-gradient(135deg,#38bdf8,#22d3ee)', ring: '#ecfeff' },
+  '🐧': { gradient: 'linear-gradient(135deg,#64748b,#38bdf8)', ring: '#f8fafc' },
+  '🦉': { gradient: 'linear-gradient(135deg,#a78bfa,#6366f1)', ring: '#f5f3ff' },
+  '🐬': { gradient: 'linear-gradient(135deg,#2dd4bf,#3b82f6)', ring: '#f0fdfa' },
+  '🦩': { gradient: 'linear-gradient(135deg,#fb7185,#f472b6)', ring: '#fff1f2' },
 };
 
 const DEFAULT_ACCENT = { gradient: 'linear-gradient(135deg,#34d399,#38bdf8)', ring: '#ecfdf5' };
