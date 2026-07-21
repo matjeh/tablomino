@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:capacitor": "cross-env BUILD_TARGET=capacitor next build",
+    "build:capacitor": "cross-env BUILD_TARGET=capacitor next build && node scripts/harden-csp.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
