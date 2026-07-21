@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useProfiles } from '@/lib/profile-context';
 import { useT } from '@/lib/i18n';
-import { getRecentSessions, getSettings } from '@/lib/repo';
+import { getRecentSessions, getSettings, getTotalCorrect } from '@/lib/repo';
 import { GameSession, SessionConfig } from '@/lib/types';
 import { ProgressionPanel } from '@/components/ProgressionPanel';
 import { SessionHistoryChart } from '@/components/SessionHistoryChart';
@@ -19,6 +19,7 @@ export default function ProgressionPage() {
   const { current, loading, updateAvatar, removeProfile } = useProfiles();
   const [settings, setSettings] = useState<SessionConfig | null>(null);
   const [sessions, setSessions] = useState<GameSession[] | null>(null);
+  const [correctCount, setCorrectCount] = useState<number | null>(null);
 
   useEffect(() => {
     if (!loading && !current) router.replace('/');
@@ -28,9 +29,10 @@ export default function ProgressionPage() {
     if (!current) return;
     getSettings(current.id!).then(setSettings);
     getRecentSessions(current.id!, 20).then(setSessions);
+    getTotalCorrect(current.id!).then(setCorrectCount);
   }, [current]);
 
-  if (loading || !current || !settings || !sessions) {
+  if (loading || !current || !settings || !sessions || correctCount === null) {
     return <LoadingScreen />;
   }
 
@@ -42,7 +44,7 @@ export default function ProgressionPage() {
 
   return (
     <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-6 px-5 py-8 sm:max-w-2xl lg:max-w-4xl">
-      <PageNav current="progression" profile={current} />
+      <PageNav current="progression" profile={current} correctCount={correctCount} />
 
       <header>
         <h1 className="text-3xl font-black text-slate-700">{t('progression.title')}</h1>
