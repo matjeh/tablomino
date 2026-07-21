@@ -20,9 +20,11 @@ const INACTIVE =
 export function PageNav({
   current,
   profile,
+  correctCount,
 }: {
   current: 'config' | 'progression';
   profile: Profile;
+  correctCount?: number;
 }) {
   const router = useRouter();
   const t = useT();
@@ -33,7 +35,18 @@ export function PageNav({
         <span className="text-3xl" aria-hidden>
           {profile.avatar}
         </span>
-        <span className="truncate text-lg font-bold text-slate-600">{profile.name}</span>
+        <div className="min-w-0">
+          <div className="truncate text-lg font-bold text-slate-600">{profile.name}</div>
+          {correctCount !== undefined && (
+            <div
+              className="flex items-center gap-1 text-xs font-semibold text-amber-500"
+              title={t('profile.select.correctAnswers', { count: correctCount })}
+            >
+              <span aria-hidden>⭐</span>
+              <span>{correctCount}</span>
+            </div>
+          )}
+        </div>
       </div>
 
       <nav className="flex items-center gap-1.5">
