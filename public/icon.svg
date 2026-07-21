@@ -6,15 +6,27 @@
     </linearGradient>
   </defs>
   <rect width="512" height="512" rx="112" fill="url(#g)"/>
-  <g fill="#ffffff">
-    <!-- multiplication cross -->
-    <g transform="translate(256 220) rotate(45)">
-      <rect x="-104" y="-26" width="208" height="52" rx="26"/>
-      <rect x="-26" y="-104" width="52" height="208" rx="26"/>
-    </g>
-    <!-- three dots suggesting a grid / progression -->
-    <circle cx="176" cy="392" r="26"/>
-    <circle cx="256" cy="392" r="26" fill-opacity="0.75"/>
-    <circle cx="336" cy="392" r="26" fill-opacity="0.5"/>
+
+  <!-- multiplication cross, shrunk to sit as a nose between the eyes and mouth -->
+  <g fill="#ffffff" fill-opacity="0.9" transform="translate(256 248) rotate(45) scale(0.42)">
+    <rect x="-104" y="-26" width="208" height="52" rx="26"/>
+    <rect x="-26" y="-104" width="52" height="208" rx="26"/>
   </g>
+
+  <!-- Kalk-style eyes: dark circle, sky-blue iris, white highlight -->
+  <g>
+    <circle cx="186" cy="150" r="34" fill="#0f172a" stroke="#a7f3d0" stroke-width="4"/>
+    <circle cx="186" cy="150" r="14" fill="#38bdf8"/>
+    <circle cx="190" cy="145" r="5" fill="#ffffff"/>
+
+    <circle cx="326" cy="150" r="34" fill="#0f172a" stroke="#a7f3d0" stroke-width="4"/>
+    <circle cx="326" cy="150" r="14" fill="#38bdf8"/>
+    <circle cx="330" cy="145" r="5" fill="#ffffff"/>
+  </g>
+
+  <!-- Kalk-style mouth: flat top, rounded bottom -->
+  <path
+    d="M 196 370 L 196 378 A 60 60 0 0 0 316 378 L 316 370 Z"
+    fill="#0f172a"
+  />
 </svg>
