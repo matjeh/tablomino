@@ -49,3 +49,4 @@ next-env.d.ts
 # Android signing keys — never commit
 *.keystore
 *.jks
+android/keystore.properties
