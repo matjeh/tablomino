@@ -70,14 +70,34 @@ npm run lint               # ESLint
 **Note:** storage runs on native SQLite (`@capacitor-community/sqlite`), which has no
 browser implementation set up in this project. `npm run dev`/`npm run build` are still
 useful for iterating on UI, layout, and translations, but any screen that touches
-profile data won't work in a plain browser tab. To run the full app, build the native
-Android project:
+profile data won't work in a plain browser tab. To run the full app, build one of the
+native projects.
+
+### Android
 
 ```bash
 npm run build:capacitor
 npx cap sync android
 cd android && ./gradlew assembleDebug   # or open android/ in Android Studio
 ```
+
+For a signed release bundle, create `android/keystore.properties` (gitignored — see
+`android/app/build.gradle` for the expected keys) and run `./gradlew bundleRelease`.
+
+### iOS
+
+Requires macOS with Xcode 16+. The Xcode project isn't committed yet; generate it once
+with `npx cap add ios` (defaults to Swift Package Manager, so no CocoaPods needed):
+
+```bash
+npm run build:capacitor
+npx cap add ios                        # first time only
+npx cap sync ios
+npx @capacitor/assets generate --ios   # icons + splash from resources/icon.png
+npx cap open ios                       # then Run on a Simulator from Xcode
+```
+
+Minimum deployment target is iOS 15, set by `@capacitor-community/sqlite`.
 
 ## License
 
