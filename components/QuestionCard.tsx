@@ -29,7 +29,10 @@ export function QuestionCard({
           : 'bg-slate-100 text-slate-400 ring-slate-200';
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-2 text-5xl font-black tracking-tight sm:text-6xl">
+    <div
+      dir="ltr"
+      className="flex flex-wrap items-center justify-center gap-2 text-5xl font-black tracking-tight sm:text-6xl"
+    >
       <span>{before}</span>
       <span
         className={`inline-flex min-w-[1.6em] items-center justify-center rounded-2xl px-3 py-1 ring-4 transition ${slotColor}`}
