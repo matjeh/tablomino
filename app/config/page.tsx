@@ -194,7 +194,7 @@ export default function ConfigPage() {
           {(['direct', 'hole'] as Format[]).map((f) => (
             <Segment key={f} active={formats.includes(f)} onClick={() => toggleFormat(f)}>
               <span className="block">{t(`format.${f}`)}</span>
-              <span className="mt-1 block text-xs font-normal opacity-70">
+              <span className="mt-1 block text-xs font-normal opacity-70" dir="ltr">
                 {t(`format.${f}.example`)}
               </span>
             </Segment>
