@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tablomino — Privacy Policy</title>
+<meta name="description" content="Tablomino's privacy policy: no personal data is collected, of any kind, from anyone, ever.">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f6f8ff;
+    --fg: #1e293b;
+    --muted: #475569;
+    --card: #ffffff;
+    --accent: #7c3aed;
+    --ring: #e2e8f0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f172a;
+      --fg: #e2e8f0;
+      --muted: #94a3b8;
+      --card: #1e293b;
+      --ring: #334155;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--ring);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin: 0 0 0.25rem;
+  }
+  .updated {
+    color: var(--muted);
+    font-size: 0.875rem;
+    margin: 0 0 1.5rem;
+  }
+  .lede {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  ul {
+    padding-left: 1.25rem;
+  }
+  li {
+    margin: 0.5rem 0;
+  }
+  a {
+    color: var(--accent);
+  }
+  h2 {
+    font-size: 1.1rem;
+    margin-top: 2rem;
+  }
+  footer {
+    margin-top: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.875rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <h1>Privacy Policy — Tablomino</h1>
+    <p class="updated">Last updated: 2026-07-25</p>
+
+    <p class="lede">Tablomino collects no personal data, of any kind, from anyone, ever.</p>
+
+    <ul>
+      <li>Everything the app stores — player profiles, practice progress, badges, settings — is saved only on your own device, in a private SQLite database belonging to the app. None of it is transmitted anywhere.</li>
+      <li>There is no account, no sign-in, and no server. The app has no backend to send data to.</li>
+      <li>There are no analytics, no crash reporting, no advertising, and no third-party SDKs of any kind embedded in the app.</li>
+      <li>The app makes no network requests at all. Everything it needs is bundled inside the app itself, so it works fully offline.</li>
+    </ul>
+
+    <p>This applies equally to children using the app: Tablomino does not collect, store, or share any personal information about any user, child or adult, under any circumstance.</p>
+
+    <p>Uninstalling the app removes all stored information immediately and completely, since nothing exists anywhere else.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy can be sent to <a href="mailto:mathieu.jehanno@gmail.com">mathieu.jehanno@gmail.com</a> or raised as an issue on the <a href="https://github.com/matjeh/tablomino">project's GitHub repository</a>.</p>
+  </div>
+  <footer>
+    <a href="https://github.com/matjeh/tablomino">Tablomino</a> is free, open-source software.
+  </footer>
+</main>
+</body>
+</html>
