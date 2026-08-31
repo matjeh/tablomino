@@ -155,7 +155,7 @@ export default function ConfigPage() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-6 px-5 py-8">
+    <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-6 px-5 pt-14 pb-8">
       <PageNav current="config" profile={current} />
 
       <h1 className="text-3xl font-black text-slate-700">{t('config.title')}</h1>

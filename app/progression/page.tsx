@@ -43,7 +43,7 @@ export default function ProgressionPage() {
   };
 
   return (
-    <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-6 px-5 py-8 sm:max-w-2xl lg:max-w-4xl">
+    <main className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-6 px-5 pt-14 pb-8 sm:max-w-2xl lg:max-w-4xl">
       <PageNav current="progression" profile={current} correctCount={correctCount} />
 
       <header>
