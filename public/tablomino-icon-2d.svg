@@ -175,4 +175,16 @@
          id="ellipse11" />
     </g>
   </g>
+  <!-- Full-bleed floor, deliberately NOT clipped by #sq (that squircle
+       curves inward at the corners, same as the ones this is meant to
+       fill). Bleeds past the raw canvas edges instead, so it fills the
+       full square; iOS applies its own corner mask at render time,
+       same as the navy background above. -->
+  <rect
+     x="-5"
+     y="78"
+     width="110"
+     height="30"
+     fill="#6bc397"
+     id="floor" />
 </svg>
