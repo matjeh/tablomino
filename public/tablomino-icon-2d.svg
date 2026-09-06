@@ -173,34 +173,6 @@
          ry="34"
          fill="#6bc397"
          id="ellipse11" />
-      <circle
-         cx="50"
-         cy="58"
-         r="17"
-         fill="#8fd8ac"
-         id="circle12" />
-      <circle
-         cx="50"
-         cy="58"
-         r="13.5"
-         fill="#12182b"
-         id="circle13" />
-      <circle
-         cx="49"
-         cy="59"
-         r="6.5"
-         fill="#5c9be8"
-         id="circle14" />
-      <circle
-         cx="46.5"
-         cy="56"
-         r="2.4000001"
-         fill="#ffffff"
-         id="circle15" />
-      <path
-         d="M 38,78 Q 50,76 62,78 60,90 50,90 40,90 38,78 Z"
-         fill="#1f4d39"
-         id="path15" />
     </g>
   </g>
 </svg>
