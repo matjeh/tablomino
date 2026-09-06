@@ -4,6 +4,7 @@
 import { evaluateBadges } from './badges';
 import { shuffle } from './distractors';
 import { buildQuestion } from './format';
+import { availableTables } from './facts';
 import { pickSessionFacts } from './session';
 import {
   awardBadges,
@@ -57,6 +58,17 @@ function pickWithRepeats(pool: Fact[], count: number): Fact[] {
   return picked;
 }
 
+/**
+ * How many tables the session can draw from for an operation -- what makes a
+ * blank on the table side guessable or not (see `buildQuestion`). Addition
+ * ignores the table filter entirely (`loadOperationPool` above), so its blank
+ * is never guessable from the selection.
+ */
+function tableChoiceCount(config: SessionConfig, operation: Operation): number {
+  if (operation === 'addition') return Infinity;
+  return config.targetTables?.length ?? availableTables(operation, config.difficulty).length;
+}
+
 export async function buildSessionQuestions(
   config: SessionConfig,
 ): Promise<Question[]> {
@@ -69,7 +81,12 @@ export async function buildSessionQuestions(
   }
 
   return shuffle(picked).map((f) =>
-    buildQuestion(f, config.formats[Math.floor(Math.random() * config.formats.length)]),
+    buildQuestion(
+      f,
+      config.formats[Math.floor(Math.random() * config.formats.length)],
+      Math.random,
+      { tableChoices: tableChoiceCount(config, f.operation) },
+    ),
   );
 }
 

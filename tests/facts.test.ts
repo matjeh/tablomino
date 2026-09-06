@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { availableTables, progressionTables, universeKeys } from '@/lib/facts';
-import { buildQuestion, triple } from '@/lib/format';
+import { MIN_TABLES_FOR_TABLE_BLANK, buildQuestion, triple } from '@/lib/format';
 import { buildChoices, distractors } from '@/lib/distractors';
 import { makeFact, seeded } from './helpers';
 
@@ -69,6 +69,40 @@ describe('format triple/buildQuestion', () => {
     const q = buildQuestion(f, 'hole', seeded(2));
     expect([7, 8]).toContain(q.answer);
     expect(q.prompt).toContain('56');
+  });
+
+  it('keeps the blank off the table when too few tables are in play', () => {
+    // Blanking the table would give "? × 8 = 56", whose answer is always the
+    // one table the child selected — nothing left to compute.
+    for (let seed = 1; seed <= 20; seed++) {
+      const q = buildQuestion(makeFact(7, 8, 0), 'hole', seeded(seed), { tableChoices: 1 });
+      expect(q.answer).toBe(8);
+      expect(q.prompt).toBe('7 × ? = 56');
+    }
+  });
+
+  it('knows the table sits on the other side for division and subtraction', () => {
+    const div = makeFact(6, 7, 0);
+    div.operation = 'division';
+    // 42 ÷ 6 = 7 — the table (6) is the divisor, so the blank must land on the
+    // dividend instead.
+    for (let seed = 1; seed <= 10; seed++) {
+      const q = buildQuestion(div, 'hole', seeded(seed), { tableChoices: 1 });
+      expect(q.answer).toBe(42);
+      expect(q.prompt).toBe('? ÷ 6 = 7');
+    }
+  });
+
+  it('still uses both sides once enough tables are selected', () => {
+    const answers = new Set<number>();
+    for (let seed = 1; seed <= 40; seed++) {
+      answers.add(
+        buildQuestion(makeFact(7, 8, 0), 'hole', seeded(seed), {
+          tableChoices: MIN_TABLES_FOR_TABLE_BLANK,
+        }).answer,
+      );
+    }
+    expect(answers).toEqual(new Set([7, 8]));
   });
 });
 

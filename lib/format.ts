@@ -37,17 +37,43 @@ function pick<T>(arr: T[], rng: () => number): T {
 }
 
 /**
+ * Which side of the equation the table (the `a` operand) lands on, per
+ * `triple` above: multiplication/addition put it first, the two inverse
+ * operations put it second.
+ */
+function tableSide(operation: Fact['operation']): BlankPos {
+  return operation === 'division' || operation === 'subtraction' ? 'y' : 'x';
+}
+
+/**
+ * How many tables must be in play before the blank is allowed to fall on the
+ * table itself. Below this, `? × 4 = 28` has the same answer every time (the
+ * one table the child picked), so they stop computing and just repeat it.
+ */
+export const MIN_TABLES_FOR_TABLE_BLANK = 3;
+
+/**
  * Build the displayed question for a fact in the given format. For `hole`
  * the blank falls on one of the two operands (chosen via rng); for `direct`
  * it's the result.
+ *
+ * `tableChoices` is how many tables the session can draw from. When that's
+ * small the blank is kept off the table side, otherwise the answer is simply
+ * the selected table and the exercise is worthless.
  */
 export function buildQuestion(
   fact: Fact,
   format: Format = 'direct',
   rng: () => number = Math.random,
+  { tableChoices = Infinity }: { tableChoices?: number } = {},
 ): Question {
   const { x, y, z, symbol } = triple(fact);
-  const pos: BlankPos = format === 'direct' ? 'result' : pick<BlankPos>(['x', 'y'], rng);
+  const sides: BlankPos[] = ['x', 'y'];
+  const holeSides =
+    tableChoices < MIN_TABLES_FOR_TABLE_BLANK
+      ? sides.filter((s) => s !== tableSide(fact.operation))
+      : sides;
+  const pos: BlankPos = format === 'direct' ? 'result' : pick<BlankPos>(holeSides, rng);
 
   let prompt: string;
   let answer: number;
