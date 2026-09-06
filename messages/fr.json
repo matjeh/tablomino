@@ -8,7 +8,7 @@
   "common.close": "Fermer",
 
   "profile.select.title": "Qui joue aujourd'hui ?",
-  "profile.select.subtitle": "Kalk t'accompagne pour réviser tes tables. Choisis ton profil et c'est parti !",
+  "profile.select.subtitle": "Tablomino t'accompagne pour réviser tes tables. Choisis ton profil et c'est parti !",
   "profile.select.play": "Jouer",
   "profile.select.streakDays": "{days} jours d'affilée",
   "profile.select.streakOneDay": "1 jour",
