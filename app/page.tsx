@@ -102,7 +102,9 @@ export default function ProfileSelectPage() {
             {loading ? (
               <p className="py-6 text-center text-slate-400">…</p>
             ) : profiles.length === 0 ? (
-              <p className="py-6 text-center text-slate-400">{t('profile.select.empty')}</p>
+              <Button className="mt-2 w-full" onClick={() => router.push('/profil/nouveau')}>
+                ▶ {t('progression.play')}
+              </Button>
             ) : (
               profiles.map((p) => (
                 <PlayerCard
@@ -121,13 +123,15 @@ export default function ProfileSelectPage() {
 
           <div className="flex-1" />
 
-          <Button
-            variant="ghost"
-            className="mt-5"
-            onClick={() => router.push('/profil/nouveau')}
-          >
-            ＋ {t('profile.select.add')}
-          </Button>
+          {!loading && profiles.length > 0 && (
+            <Button
+              variant="ghost"
+              className="mt-5"
+              onClick={() => router.push('/profil/nouveau')}
+            >
+              ＋ {t('profile.select.add')}
+            </Button>
+          )}
         </div>
       </div>
 

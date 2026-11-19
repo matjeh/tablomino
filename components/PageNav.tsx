@@ -5,9 +5,9 @@ import { useT } from '@/lib/i18n';
 import { Profile } from '@/lib/types';
 
 const ACTIVE =
-  'flex items-center gap-1 rounded-xl bg-violet-600 px-3 py-1.5 text-xs font-bold text-white shadow-md';
+  'flex items-center gap-1.5 rounded-2xl bg-violet-600 px-4 py-2.5 text-sm font-bold text-white shadow-md [&>span:first-child]:text-2xl';
 const INACTIVE =
-  'flex items-center gap-1 rounded-xl bg-white px-3 py-1.5 text-xs font-bold text-slate-600 ring-2 ring-slate-200 transition hover:ring-violet-300';
+  'flex items-center gap-1.5 rounded-2xl bg-white px-4 py-2.5 text-sm font-bold text-slate-600 ring-2 ring-slate-200 transition hover:ring-violet-300 [&>span:first-child]:text-2xl';
 
 /**
  * Shared header for profile-scoped pages: avatar+name identity display on
