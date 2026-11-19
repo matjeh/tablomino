@@ -8,7 +8,9 @@
   "common.close": "关闭",
 
   "profile.select.title": "今天谁来玩？",
+  "profile.select.welcome": "欢迎！",
   "profile.select.subtitle": "Tablomino会帮你练习口诀表。选择你的角色，开始吧！",
+  "profile.select.subtitleIntro": "Tablomino会帮你练习口诀表。",
   "profile.select.play": "开始",
   "profile.select.streakDays": "连续{days}天",
   "profile.select.streakOneDay": "连续1天",

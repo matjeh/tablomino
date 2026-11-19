@@ -91,10 +91,18 @@ export default function ProfileSelectPage() {
         <div className="flex flex-1 flex-col p-6">
           <div className="text-center">
             <h1 className="text-[22px] font-extrabold text-slate-900">
-              {t('profile.select.title')}
+              {t(
+                !loading && profiles.length === 0
+                  ? 'profile.select.welcome'
+                  : 'profile.select.title',
+              )}
             </h1>
             <p className="mt-1.5 text-sm font-medium leading-relaxed text-slate-500">
-              {t('profile.select.subtitle')}
+              {t(
+                !loading && profiles.length === 0
+                  ? 'profile.select.subtitleIntro'
+                  : 'profile.select.subtitle',
+              )}
             </p>
           </div>
 

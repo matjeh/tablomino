@@ -8,7 +8,9 @@
   "common.close": "Schließen",
 
   "profile.select.title": "Wer spielt heute?",
+  "profile.select.welcome": "Willkommen!",
   "profile.select.subtitle": "Tablomino hilft dir, deine Tabellen zu üben. Wähle dein Profil und los geht's!",
+  "profile.select.subtitleIntro": "Tablomino hilft dir, deine Tabellen zu üben.",
   "profile.select.play": "Spielen",
   "profile.select.streakDays": "{days} Tage in Folge",
   "profile.select.streakOneDay": "1 Tag in Folge",

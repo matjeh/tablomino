@@ -8,7 +8,9 @@
   "common.close": "Fechar",
 
   "profile.select.title": "Quem vai jogar hoje?",
+  "profile.select.welcome": "Boas-vindas!",
   "profile.select.subtitle": "O Tablomino te ajuda a praticar as tabuadas. Escolha seu perfil e vamos lá!",
+  "profile.select.subtitleIntro": "O Tablomino te ajuda a praticar as tabuadas.",
   "profile.select.play": "Jogar",
   "profile.select.streakDays": "{days} dias seguidos",
   "profile.select.streakOneDay": "1 dia seguido",
